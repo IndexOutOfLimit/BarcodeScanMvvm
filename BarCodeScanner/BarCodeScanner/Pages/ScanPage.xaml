@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BarCodeScanner.Pages.ScanPage"
+             xmlns:viewmodels="clr-namespace:BarCodeScanner.ViewModels"
+             x:DataType="viewmodels:ScanPageViewModel"
+             xmlns:models="clr-namespace:BarCodeScanner.Models;assembly=BarCodeScanner"
+             Title="Scan">
+    <ContentPage.Content>
+        <Grid Margin="5,5,5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="0.2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.11*"/>
+                <RowDefinition Height="0.09*"/>
+                <RowDefinition Height="0.8*"/>
+            </Grid.RowDefinitions>
+
+            <Entry Grid.Column="0" Grid.Row="0" Placeholder="Enter ID/Scan ID" BackgroundColor="LightGray"/>
+            <ImageButton Grid.Column="1" Source="BarCodeScanner.PNG" Command="{Binding ScanBarcodeCommand}" Grid.Row="0" Padding="0"/>
+            <Button Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding DeleteBarcodeCommand}" HorizontalOptions="EndAndExpand" Text="Delete"/>
+            <CollectionView Grid.Row="2" Grid.ColumnSpan="2"  ItemsSource="{Binding BarCodes}" SelectionMode="None" BackgroundColor="LightGray" VerticalOptions="Start">
+                <!--<CollectionView.Margin>
+                    <OnIdiom x:TypeArguments="Thickness" Phone="16,0" Tablet="8,0" Desktop="8,0" />
+                </CollectionView.Margin>-->
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="1" HorizontalItemSpacing="8" VerticalItemSpacing="8" />
+                </CollectionView.ItemsLayout>                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:BarCodeModel">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.85*"/>
+                                <ColumnDefinition Width="0.15*"/>
+                            </Grid.ColumnDefinitions>                        
+                            <Label Grid.Column="0" Margin="5,0,0,0"  Text="{Binding BarCodeValue}" FontSize="18" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+                            <CheckBox Grid.Column="1" HorizontalOptions="End" Color="Blue" IsChecked="{Binding IsSelected}" >
+                                
+                            </CheckBox>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

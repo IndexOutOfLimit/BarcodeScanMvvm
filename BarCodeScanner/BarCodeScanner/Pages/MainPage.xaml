@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:prism="http://prismlibrary.com"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:models="clr-namespace:BarCodeScanner.Models"
+            xmlns:resources="clr-namespace:BarCodeScanner.Resources"
+            xmlns:viewmodels="clr-namespace:BarCodeScanner.ViewModels"
+            x:DataType="viewmodels:MainPageViewModel"
+            x:Class="BarCodeScanner.Pages.MainPage"
+            xmlns:local="clr-namespace:BarCodeScanner.Pages"
+            x:Name="mainPage" NavigationPage.HasNavigationBar="False"  BarBackground="Black">
+
+    <TabbedPage.Resources>
+        <Color x:Key="LightMenuItemTextColor">#144686</Color>
+        <Color x:Key="DarkMenuItemTextColor">#539bf5</Color>
+
+        <Style TargetType="StackLayout" x:Key="MenuContainer">
+            <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            <Setter Property="Spacing" Value="0"/>
+        </Style>
+        <Style TargetType="ListView" x:Key="MenuList">
+            <Setter Property="SeparatorVisibility" Value="None"/>
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryBackgroundColor}, Dark={StaticResource DarkSecondaryBackgroundColor}}"/>
+        </Style>
+        <Style TargetType="Grid" x:Key="MenuItemContainer">
+            <Setter Property="RowSpacing" Value="0"/>
+            <Setter Property="ColumnSpacing" Value="0"/>
+            <Setter Property="Padding" Value="8,16"/>
+        </Style>
+        <Style TargetType="Image" x:Key="MenuItemIcon">
+            <Setter Property="WidthRequest" Value="20"/>
+            <Setter Property="HeightRequest" Value="20"/>
+            <Setter Property="Margin" Value="16,0"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="Label" x:Key="MenuItemLabel">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightMenuItemTextColor}, Dark={StaticResource DarkMenuItemTextColor}}"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="16,0"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+
+        <Style TargetType="StackLayout" x:Key="InternetNAContainerStyle">
+            <Setter Property="BackgroundColor" Value="#F49715" />
+            <Setter Property="Spacing" Value="0" />
+        </Style>
+        <Style TargetType="Label" x:Key="InternetNALabelStyle">
+            <Setter Property="Margin" Value="16,8" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="#FFFFFF" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+            <Setter Property="IsVisible" Value="{Binding IsInternetAvailable, Converter={StaticResource InvertedBoolConverter}}" />
+        </Style>
+    </TabbedPage.Resources>
+
+    <TabbedPage.Children>
+        <local:ScanPage />
+        <local:ValidatePage />
+        <local:SyncPage />
+    </TabbedPage.Children>
+</TabbedPage>

@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:converters="clr-namespace:BarCodeScanner.Converters"
+                        xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
+                        x:Class="BarCodeScanner.App">
+    <Application.Resources>
+        <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <converters:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
+        <converters:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter" />
+
+        <Color x:Key="LightBackgroundColor">#FFFFFF</Color>
+        <Color x:Key="LightSecondaryBackgroundColor">#E8E7E7</Color>
+        <Color x:Key="LightControlBackgroundColor">#F6F8FA</Color>
+        <Color x:Key="LightPlaceholderColor">#6E7781</Color>
+        <Color x:Key="LightBorderColor">#D0D7DE</Color>
+        <Color x:Key="LightTextColor">#24292F</Color>
+
+        <Color x:Key="DarkBackgroundColor">#22272e</Color>
+        <Color x:Key="DarkSecondaryBackgroundColor">#2d333b</Color>
+        <Color x:Key="DarkControlBackgroundColor">#1C2128</Color>
+        <Color x:Key="DarkPlaceholderColor">#545D68</Color>
+        <Color x:Key="DarkBorderColor">#444c56</Color>
+        <Color x:Key="DarkTextColor">#adbac7</Color>
+
+        <Style TargetType="NavigationPage" ApplyToDerivedTypes="True">
+            <Setter Property="BarBackgroundColor" Value="#2266bb"/>
+            <Setter Property="BarTextColor" Value="#FFFFFF"/>
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}"/>
+        </Style>
+        <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+            <Setter Property="Title" Value="{Binding Title}" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightBackgroundColor}, Dark={StaticResource DarkBackgroundColor}}"/>
+            <Setter Property="NavigationPage.BackButtonTitle" Value="" />
+        </Style>
+
+        <Style TargetType="Label" ApplyToDerivedTypes="True">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightTextColor}, Dark={StaticResource DarkTextColor}}" />
+        </Style>
+        <Style TargetType="Entry" ApplyToDerivedTypes="True">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightTextColor}, Dark={StaticResource DarkTextColor}}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource LightPlaceholderColor}, Dark={StaticResource DarkPlaceholderColor}}" />
+        </Style>
+        <Style TargetType="Editor" ApplyToDerivedTypes="True">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightTextColor}, Dark={StaticResource DarkTextColor}}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource LightPlaceholderColor}, Dark={StaticResource DarkPlaceholderColor}}" />
+        </Style>
+        <Style TargetType="Picker" ApplyToDerivedTypes="True">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightTextColor}, Dark={StaticResource DarkTextColor}}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+        </Style>
+        <Style TargetType="SearchBar" ApplyToDerivedTypes="True">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightTextColor}, Dark={StaticResource DarkTextColor}}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource LightPlaceholderColor}, Dark={StaticResource DarkPlaceholderColor}}" />
+        </Style>
+
+        <Style TargetType="Button" x:Key="RoundedButtonStyle">
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="BorderColor" Value="#dddddd" />
+            <Setter Property="CornerRadius" Value="4" />
+        </Style>
+        <Style TargetType="Button" x:Key="PrimaryRoundedButtonStyle" BasedOn="{StaticResource RoundedButtonStyle}">
+            <Setter Property="BorderColor" Value="#2266bb" />
+            <Setter Property="BackgroundColor" Value="#2266bb" />
+            <Setter Property="TextColor" Value="#ffffff" />
+        </Style>
+        <Style TargetType="Button" x:Key="InfoRoundedButtonStyle" BasedOn="{StaticResource RoundedButtonStyle}">
+            <Setter Property="BorderColor" Value="#cd163f" />
+            <Setter Property="BackgroundColor" Value="#cd163f" />
+            <Setter Property="TextColor" Value="#ffffff" />
+        </Style>
+
+        <Style TargetType="BoxView" x:Key="BoxLineStyle">
+            <Setter Property="BackgroundColor" Value="#E8E7E7"/>
+            <Setter Property="HeightRequest" Value="1"/>
+        </Style>
+        <Style TargetType="BoxView" x:Key="BoxHeaderLineStyle">
+            <Setter Property="BackgroundColor" Value="#DDDDDD"/>
+            <Setter Property="HeightRequest" Value="1"/>
+        </Style>
+        <Style TargetType="BoxView" x:Key="BoxLineNegativeMarginStyle">
+            <Setter Property="BackgroundColor" Value="#E8E7E7"/>
+            <Setter Property="HeightRequest" Value="1"/>
+            <Setter Property="Margin" Value="-8,0"/>
+        </Style>
+
+        <Style TargetType="Grid" x:Key="FormGrid">
+            <Setter Property="Padding" Value="8,16"/>
+            <Setter Property="VerticalOptions" Value="Start" />
+        </Style>
+        <Style TargetType="Label" x:Key="FormLabelStyle">
+            <Setter Property="Margin" Value="8,6"/>
+            <Setter Property="VerticalOptions" Value="Start"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="HorizontalTextAlignment" Value="End"/>
+        </Style>
+        <Style TargetType="Label" x:Key="FormAlignedLabelStyle" BasedOn="{StaticResource FormLabelStyle}">
+            <Setter Property="HorizontalTextAlignment" Value="End"/>
+        </Style>
+        <Style TargetType="Label" x:Key="FormLabelRowStyle" BasedOn="{StaticResource FormLabelStyle}">
+            <Setter Property="Margin" Value="8,0"/>
+        </Style>
+        <Style TargetType="Label" x:Key="FormValueLabelStyle">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="8,4"/>
+        </Style>
+        <Style TargetType="Label" x:Key="FormValueLabelRowStyle" BasedOn="{StaticResource FormValueLabelStyle}">
+            <Setter Property="Margin" Value="8,0"/>
+        </Style>
+        <Style TargetType="Label" x:Key="FormReadonlyLabelStyle" BasedOn="{StaticResource FormValueLabelStyle}">
+            <Setter Property="Margin" Value="8"/>
+        </Style>
+        <Style TargetType="Picker" x:Key="FormPickerStyle">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="8,0"/>
+        </Style>
+        <Style TargetType="DatePicker" x:Key="FormDatePickerStyle">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="8,0"/>
+        </Style>
+        <Style TargetType="TimePicker" x:Key="FormTimePickerStyle">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="8,0"/>
+        </Style>
+        <Style TargetType="Entry" x:Key="FormEntryStyle">
+            <Setter Property="VerticalOptions" Value="Start"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="8,0"/>
+        </Style>
+        <Style TargetType="Editor" x:Key="FormEditorStyle">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="8,0"/>
+        </Style>
+        <Style TargetType="CheckBox" x:Key="FormCheckBoxStyle">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="8,0"/>
+            <Setter Property="Color" Value="#2266bb"/>
+        </Style>
+        <Style TargetType="Switch" x:Key="FormSwitchStyle">
+            <Setter Property="VerticalOptions" Value="Start"/>
+            <Setter Property="Margin" Value="8,0"/>
+        </Style>
+
+        <!-- Form -->
+        <Style TargetType="StackLayout" x:Key="FormContainerStyle">
+            <Setter Property="Spacing" Value="0" />
+            <Setter Property="Padding" Value="10" />
+        </Style>
+        <Style TargetType="StackLayout" x:Key="FormGroupContaineStyle">
+            <Setter Property="Spacing" Value="0" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        </Style>
+        <Style TargetType="StackLayout" x:Key="FormGroupColumnWrapperStyle">
+            <Setter Property="Spacing" Value="0" />
+            <Setter Property="Orientation">
+                <OnIdiom x:TypeArguments="StackOrientation" Phone="Vertical" Tablet="Horizontal" Desktop="Horizontal" />
+            </Setter>
+        </Style>
+        <Style TargetType="Grid" x:Key="FormGroupColumnContainerStyle">
+            <Setter Property="RowSpacing" Value="0" />
+            <Setter Property="ColumnSpacing" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        <Style TargetType="Label" x:Key="FormGroupLabelStyle">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="6,6,6,3" />
+        </Style>
+        <Style TargetType="Entry" x:Key="FormGroupEntryStyle" ApplyToDerivedTypes="True">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="6,3,6,6" />
+        </Style>
+        <Style TargetType="Editor" x:Key="FormGroupEditorStyle" ApplyToDerivedTypes="True">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="6,3,6,6" />
+        </Style>
+        <Style TargetType="StackLayout" x:Key="FormGroupCheckBoxContainerStyle">
+            <Setter Property="Spacing" Value="0" />
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="VerticalOptions" Value="EndAndExpand" />
+        </Style>
+        <Style TargetType="CheckBox" x:Key="FormGroupCheckBoxStyle">
+            <Setter Property="Margin" Value="6,3,0,6" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Color" Value="#2266bb"/>
+        </Style>
+        <Style TargetType="Label" x:Key="FormGroupCheckBoxLabelStyle">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="0,3,6,6" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+        <Style TargetType="Picker" x:Key="FormGroupPickerStyle">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="6,3,6,6" />
+        </Style>
+        <!-- Form -->
+    </Application.Resources>
+</prism:PrismApplication>
